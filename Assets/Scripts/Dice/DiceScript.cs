@@ -33,6 +33,7 @@ public class DiceScript : MonoBehaviour {
 	void Awake(){
 		//RollDiceNoTap ();
 		//BeforeRollStarted = true;
+		MyDiceState = DiceStates.AWaitingRoll;
 	}
 
 	void Update(){
@@ -92,8 +93,9 @@ public class DiceScript : MonoBehaviour {
 		//transform.GetChild (0).transform.GetChild (0).transform.GetComponent<MeshRenderer> ().material.color = Color.grey;
 		MyDiceState = DiceStates.RollResult;
 		//Debug.Log ("Collecting the roll RESULT");
-		StartCoroutine (LockDieRoll ());
+		////////StartCoroutine (LockDieRoll ());
 		//StartCoroutine (ShowDiceTotalText());
+		MyDiceState = DiceStates.AWaitingRoll;
 
 	}
 
