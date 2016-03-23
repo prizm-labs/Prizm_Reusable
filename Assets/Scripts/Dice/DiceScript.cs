@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using TouchScript;
 using TouchScript.Gestures;
+using UnityEngine.UI;
 
 public enum DiceStates{None, AWaitingRoll, Rolling, RollChecking, RollEnded, RollResult}
 
@@ -92,10 +93,28 @@ public class DiceScript : MonoBehaviour {
 		yield return new WaitForSeconds (1.0f);
 		//transform.GetChild (0).transform.GetChild (0).transform.GetComponent<MeshRenderer> ().material.color = Color.grey;
 		MyDiceState = DiceStates.RollResult;
+		Debug.Log ("ROLL RESULT IS: " + MyRollResult);
+		GameObject diceText_go_Holder = GameObject.FindGameObjectWithTag("DiceText_Movable").gameObject;
+		Text diceResultText = GameObject.FindGameObjectWithTag("DiceText_Movable").transform.FindChild("Canvas/t_dice_announcement_text").GetComponent<Text>();
+		diceResultText.text = MyRollResult.ToString();
+		diceResultText.transform.GetChild (0).GetComponent<Image> ().enabled = true;
+		diceResultText.GetComponent<Animator> ().SetTrigger ("Expand");
+		//diceResultText.transform.parent.transform.parent.transform.eulerAngles = new Vector3(diceResultText.transform.parent.transform.parent.transform.rotation.x, MyDockCard.transform.rotation.y, diceResultText.transform.parent.transform.parent.transform.rotation.z);
+		//Debug.Log("Setting Dice text rotation");
+		///////////////diceText_go_Holder.transform.eulerAngles = MyDockCard.transform.eulerAngles;
+		//Debug.Log("Setting Dice text rotation AFTER");
+
+		//TODO: Show/animate dice roll number
+		//TODO: //Arrow points to appropriate hex tile
+
+		yield return new WaitForSeconds (3.0f);
+		diceResultText.text = "";
+		diceResultText.transform.GetChild (0).GetComponent<Image> ().enabled = false;
 		//Debug.Log ("Collecting the roll RESULT");
 		////////StartCoroutine (LockDieRoll ());
 		//StartCoroutine (ShowDiceTotalText());
 		MyDiceState = DiceStates.AWaitingRoll;
+		Debug.Log ("made it to the end of the function");
 
 	}
 
